@@ -1,0 +1,24 @@
+{
+  "name": "fortnite-live-scoreboard",
+  "version": "1.0.0",
+  "description": "View a live scoreboard of your current Fortnite game based on replay files!",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "npm run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Fortnite",
+    "live",
+    "websockets",
+    "vue"
+  ],
+  "author": "Shiqan",
+  "license": "MIT",
+  "dependencies": {
+    "mqtt": "^2.18.8",
+    "server": "^1.0.18",
+    "ws": "^6.1.3"
+  }
+}

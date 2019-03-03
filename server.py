@@ -1,5 +1,5 @@
-import gevent.monkey
-gevent.monkey.patch_all()
+# import gevent.monkey
+# gevent.monkey.patch_all()
 
 import logging
 import os
@@ -23,7 +23,6 @@ define("cookie_key", default=secrets.token_urlsafe(32), help="cookie secret key"
 class Application(tornado.web.Application):
     def __init__(self, feed):
         handlers = [
-            (r"/", MainHandler),
             (r"/websocket/([a-zA-Z0-9-_=]*)$", FortniteSocketHandler, dict(feed=feed)),
         ]
         settings = dict(
@@ -42,14 +41,6 @@ class NotFoundHandler(tornado.web.RequestHandler):
             status_code=404,
             reason="Invalid resource path."
         )
-        
-    def get(self):
-        self.render("404.html")
-
-class MainHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.render("index.html")
-
 
 class FortniteSocketHandler(tornado.websocket.WebSocketHandler):
     def initialize(self, feed):

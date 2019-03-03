@@ -1,6 +1,7 @@
 import abc
 import logging
 import os
+from collections import defaultdict
 
 
 class ApplicationBackend:
@@ -8,14 +9,12 @@ class ApplicationBackend:
     __metaclass__ = abc.ABCMeta
 
     def __init__(self):
-        self.clients = {}
+        self.clients = defaultdict([])
 
     def subscribe(self, client, room):
         """Subscribe websocket client to a specific room."""
-        if room in self.clients:
-            self.clients[room].append(client)
-        else:
-            self.clients[room] = [client]
+        self.clients[room].append(client)
+        
 
     def unsubscribe(self, client, room):
         """Unsubscribe websocket client from a room."""

@@ -9,12 +9,11 @@ class ApplicationBackend:
     __metaclass__ = abc.ABCMeta
 
     def __init__(self):
-        self.clients = defaultdict([])
+        self.clients = defaultdict(list)
 
     def subscribe(self, client, room):
         """Subscribe websocket client to a specific room."""
-        self.clients[room].append(client)
-        
+        self.clients[room].append(client)        
 
     def unsubscribe(self, client, room):
         """Unsubscribe websocket client from a room."""

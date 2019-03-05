@@ -5,7 +5,7 @@ import paho.mqtt.client as mqtt
 from abstract_feed import ApplicationBackend
 
 MQTT_URL = os.environ.get('MQTT_URL', 'm24.cloudmqtt.com')
-MQTT_PORT = os.environ.get('MQTT_PORT', '18142')
+MQTT_PORT = int(os.environ.get('MQTT_PORT', '18142'))
 MQTT_USERNAME = os.environ.get('MQTT_USERNAME', 'Python')
 MQTT_PASSWORD = os.environ.get('MQTT_PASSWORD', '1OQ$7LAdn&*nC3a%rZdbXU&XNsreCc#1')
 
@@ -28,7 +28,8 @@ class MqttBackend(ApplicationBackend):
 
     def on_message(self, mqttc, obj, msg):
         if self.callback:
-            for client in self.clients.get(msg.topic, []):
+            topic = msg.topic.split('/')[-1]
+            for client in self.clients.get(topic, []):
                 self.callback(client, msg.payload)
 
     def on_subscribe(self, mqttc, obj, mid, granted_qos):
